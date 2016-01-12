@@ -10,8 +10,6 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 public class MalcovTest {
-    private static final String EOL = "EOL";
-
     @Test
     public void test() {
         final List<String> keys =
@@ -28,6 +26,8 @@ public class MalcovTest {
     }
 
     private static class MalcovHelper {
+        private static final String EOL = "EOL";
+
         private static String process(final List<String> keys) {
             final List<String> tmp = Lists.newArrayList(keys.get(0), keys.get(1));
             final List<String> result = new ArrayList<String>();
@@ -35,7 +35,7 @@ public class MalcovTest {
             while (!EOL.equals(markov)) {
                 final String k1 = tmp.get(0);
                 final String k2 = tmp.get(1);
-                markov = MalcovBuilder.build(keys, k1, k2);
+                markov = new MalcovBuilder().build(keys).getValue(k1, k2);
 
                 tmp.clear();
                 tmp.add(k2);
@@ -49,16 +49,12 @@ public class MalcovTest {
         }
 
         private static class MalcovBuilder {
-            private final List<MarcovVO> marcovVO;
+            private List<MarcovVO> marcovVO;
 
-            private MalcovBuilder(final List<MarcovVO> marcovVO) {
-                this.marcovVO = marcovVO;
+            private MalcovBuilder() {
             }
 
-            private static String build(
-                    final List<String> keys,
-                    final String key1,
-                    final String key2) {
+            private MalcovBuilder build(final List<String> keys) {
                 keys.add(EOL);
                 final List<MarcovVO> candidate = new ArrayList<MarcovVO>();
                 IntStream.range(0, keys.size() - 2).forEach(
@@ -66,7 +62,8 @@ public class MalcovTest {
                                 keys.get(i),
                                 keys.get(i + 1),
                                 keys.get(i + 2))));
-                return new MalcovBuilder(candidate).getValue(key1, key2);
+                marcovVO = candidate;
+                return this;
             }
 
             private String getValue(final String key1, final String key2) {
