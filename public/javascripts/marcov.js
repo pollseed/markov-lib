@@ -61,7 +61,7 @@
 
       p.innerHTML = r;
       result.appendChild(p);
-      count.innerHTML = `${rLen} (圧縮率: ${rLen / inputLen})`;
+      count.innerHTML = `${rLen} (圧縮率: ${Math.round((rLen / inputLen) * 1000) / 1000})`;
       console.info(data);
     }).fail((data, status, error) => {
       console.info(data);
