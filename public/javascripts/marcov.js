@@ -2,13 +2,16 @@
   "use strict";
 
   function mecab() {
+    let count = document.getElementById('mecab-count'),
+        input = document.getElementById('mecab-input').value;
+    count.innerHTML = input.length;
     $.ajax({
       url: '/markov/mecab',
       data: {
-        input: document.getElementById('mecab-input').value
+        input: input
       },
     }).done((data, status, xhr) => {
-      requestParse(data);
+      requestParse(data, input.length);
 
       // create table header
       /*
@@ -31,13 +34,16 @@
 
   /**
    * mecabによって分割された単語ベースに要約処理.
+   * ※ただし、圧縮率が1.0以上の場合に再度サーバにマルコフ連鎖処理
    *
    * @param data サーバから渡されたmecabオブジェクト
+   * @param inputLen インプットの長さ
    */
-  function requestParse(data) {
+  function requestParse(data, inputLen) {
     let r = data.result,
         result = document.getElementById('mecab-result'),
-        table = document.createElement('table');
+        count = document.getElementById('mecab-result-count');
+        // table = document.createElement('table');
     if (r === undefined || r === null || r.length <= 0) return;
 
     $.ajax({
@@ -46,9 +52,16 @@
         mecab: r
       },
     }).done((data, status, xhr) => {
-      let p = document.createElement('p');
-      p.innerHTML = data.result.join('');
+      let p = document.createElement('p'),
+          r = data.result.join(''),
+          rLen = r.length;
+
+      // 圧縮率が1.0以下でないと表示する意味はない
+      if (inputLen <= rLen) return mecab();
+
+      p.innerHTML = r;
       result.appendChild(p);
+      count.innerHTML = `${rLen} (圧縮率: ${rLen / inputLen})`;
       console.info(data);
     }).fail((data, status, error) => {
       console.info(data);

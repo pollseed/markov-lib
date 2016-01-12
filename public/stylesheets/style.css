@@ -11,3 +11,12 @@ table,th,td {
   border-collapse: collapse;
   border: 1px blue solid;
 }
+
+textarea#mecab-input {
+  width: 100%;
+  height: 200px;
+}
+
+p {
+  
+}

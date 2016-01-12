@@ -20,26 +20,25 @@ router.get('/mecab', (req, res, next) => {
 router.get('/parse', (req, res, next) => {
   var mecab = req.query.mecab;
   if (mecab === undefined || mecab === null) res.json({ "result": "" });
-  var marcov = MalcovHelper.process(mecab);
-  console.log(marcov);
-  res.json({ "result": marcov });
-
+  var markov = MalkovHelper.process(mecab);
+  console.log(markov);
+  res.json({ "result": markov });
 });
 
-class MalcovHelper {
+class MalkovHelper {
   static process(keys) {
-    var tmp = [keys[0], keys[1]], result = [], marcov;
+    var tmp = [keys[0], keys[1]], result = [], markov;
     console.log('process tmp: ' + tmp);
     var cnt = 0;
-    while ("EOL" != marcov) {
+    while ("EOL" != markov) {
       var k1 = tmp[0], k2 = tmp[1];
-      var builder = new MalcovBuilder()
+      var builder = new MalkovBuilder()
       builder.build(keys);
-      marcov = builder.getValue(k1,k2);
+      markov = builder.getValue(k1,k2);
 
       tmp = [];
       tmp.push(k2);
-      tmp.push(marcov);
+      tmp.push(markov);
       result.push(k1);
     }
     result = result.concat(tmp);
@@ -47,19 +46,19 @@ class MalcovHelper {
     return result;
   }
 }
-class MalcovBuilder {
+class MalkovBuilder {
   build(keys) {
     keys.push('EOL');
     var candidate = [];
     for (var i = 0; i < keys.length - 2; i++) {
-      var malcov = new Malcov(keys[i], keys[i+1], keys[i+2]);
-      candidate.push(malcov);
+      var malkov = new Malkov(keys[i], keys[i+1], keys[i+2]);
+      candidate.push(malkov);
     }
-    this.marcovVO = candidate;
+    this.markovVO = candidate;
   }
   getValue(k1, k2) {
     var candidate = [];
-    this.marcovVO.forEach( v => {
+    this.markovVO.forEach( v => {
       if (k1 == v.k1 && k2 == v.k2) {
         candidate.push(v);
       }
@@ -67,7 +66,7 @@ class MalcovBuilder {
     return candidate[Math.floor(Math.random() * candidate.length)].v;
   }
 }
-class Malcov {
+class Malkov {
   constructor(k1,k2,v) {
     this.k1 = k1;
     this.k2 = k2;
