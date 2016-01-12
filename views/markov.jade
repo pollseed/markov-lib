@@ -2,9 +2,19 @@ extends layout
 
 block content
   h1=title
-  textarea#mecab-input
+  textarea#mecab-input(placeholder="要約したい文章を入力してください。")
+  br
+  br
+  合計文字数：
   span#mecab-count
+  br
+  br
   div#mecab-result
+  br
+  br
+  合計文字数：
   div#mecab-result-count
+  br
+  br
 
   script(src='../javascripts/marcov.js')

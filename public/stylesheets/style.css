@@ -1,6 +1,16 @@
 body {
+  color: #234567;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  padding-bottom: .5em;
+  border-bottom: 3px double #ccc;
+}
+h1:first-letter {
+	margin-right: .1em;
+	font-size: 1.5em;
 }
 
 a {
@@ -17,6 +27,14 @@ textarea#mecab-input {
   height: 200px;
 }
 
-p {
-  
+div#mecab-result {
+  padding: 1em;
+  border: 3px solid #ccc;
+  border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
+}
+
+span#mecab-count,div#mecab-result-count{
+  padding: .5em .75em;
+  background-color: #f6f6f6;
+  border-radius: 6px;
 }
