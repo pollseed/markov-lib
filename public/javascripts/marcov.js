@@ -3,7 +3,7 @@
 
   function mecab() {
     $.ajax({
-      url: '/marcov/mecab',
+      url: '/markov/mecab',
       data: {
         input: document.getElementById('mecab-input').value
       },
@@ -13,7 +13,24 @@
           table = document.createElement('table');
       if (r === undefined || r === null || r.length <= 0) return;
 
+      $.ajax({
+        url: '/markov/parse',
+        data: {
+          mecab: r
+        },
+      }).done((data, status, xhr) => {
+        data.result.forEach(v => {
+          let p = document.createElement('p');
+          p.innerHTML = v;
+          result.appendChild(p);
+        });
+        console.info(data);
+      }).fail((data, status, error) => {
+        console.info(data);
+      });
+
       // create table header
+      /*
       createTh(
         ['表層系', '品詞', '品詞細分類1', '品詞細分類2', '品詞細分類3', '活用形', '活用型', '原形', '読み', '発音'],
         table.insertRow(-1));
@@ -25,6 +42,7 @@
           });
       });
       result.appendChild(table);
+      */
     }).fail((data, status, error) => {
       console.log(`${status}: ${error}`);
     });
