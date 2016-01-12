@@ -25,6 +25,9 @@ table,th,td {
 textarea#mecab-input {
   width: 100%;
   height: 200px;
+  border:2px solid #F78181;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 div#mecab-result {
