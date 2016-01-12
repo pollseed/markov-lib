@@ -8,26 +8,7 @@
         input: document.getElementById('mecab-input').value
       },
     }).done((data, status, xhr) => {
-      let r = data.result,
-          result = document.getElementById('mecab-result'),
-          table = document.createElement('table');
-      if (r === undefined || r === null || r.length <= 0) return;
-
-      $.ajax({
-        url: '/markov/parse',
-        data: {
-          mecab: r
-        },
-      }).done((data, status, xhr) => {
-        data.result.forEach(v => {
-          let p = document.createElement('p');
-          p.innerHTML = v;
-          result.appendChild(p);
-        });
-        console.info(data);
-      }).fail((data, status, error) => {
-        console.info(data);
-      });
+      requestParse(data);
 
       // create table header
       /*
@@ -45,6 +26,34 @@
       */
     }).fail((data, status, error) => {
       console.log(`${status}: ${error}`);
+    });
+  }
+
+  /**
+   * mecabによって分割された単語ベースに要約処理.
+   *
+   * @param data サーバから渡されたmecabオブジェクト
+   */
+  function requestParse(data) {
+    let r = data.result,
+        result = document.getElementById('mecab-result'),
+        table = document.createElement('table');
+    if (r === undefined || r === null || r.length <= 0) return;
+
+    $.ajax({
+      url: '/markov/parse',
+      data: {
+        mecab: r
+      },
+    }).done((data, status, xhr) => {
+      data.result.forEach(v => {
+        let p = document.createElement('p');
+        p.innerHTML = v;
+        result.appendChild(p);
+      });
+      console.info(data);
+    }).fail((data, status, error) => {
+      console.info(data);
     });
   }
 
