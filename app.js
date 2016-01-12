@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var marcov = require('./routes/marcov');
+var markov = require('./routes/markov');
 
 var app = express();
 
@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist/')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/marcov', marcov);
+app.use('/markov', markov);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

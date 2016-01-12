@@ -46,11 +46,9 @@
         mecab: r
       },
     }).done((data, status, xhr) => {
-      data.result.forEach(v => {
-        let p = document.createElement('p');
-        p.innerHTML = v;
-        result.appendChild(p);
-      });
+      let p = document.createElement('p');
+      p.innerHTML = data.result.join('');
+      result.appendChild(p);
       console.info(data);
     }).fail((data, status, error) => {
       console.info(data);
