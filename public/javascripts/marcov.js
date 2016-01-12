@@ -60,6 +60,7 @@
       if (inputLen <= rLen) return mecab();
 
       p.innerHTML = r;
+      if (result.firstChild !== null) result.removeChild(result.firstChild);
       result.appendChild(p);
       count.innerHTML = `${rLen} (圧縮率: ${100 - (Math.round((rLen / inputLen) * 10000) / 100)} %)`;
       console.info(data);
