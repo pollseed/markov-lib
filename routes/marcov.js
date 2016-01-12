@@ -42,7 +42,9 @@ class MalcovHelper {
       tmp.push(marcov);
       result.push(k1);
     }
-    return result.concat(tmp);
+    result = result.concat(tmp);
+    result.pop();
+    return result;
   }
 }
 class MalcovBuilder {
