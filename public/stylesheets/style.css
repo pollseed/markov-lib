@@ -22,7 +22,7 @@ table,th,td {
   border: 1px blue solid;
 }
 
-textarea#mecab-input {
+textarea#nlp-input {
   width: 100%;
   height: 200px;
   border:2px solid #F78181;
@@ -30,13 +30,13 @@ textarea#mecab-input {
   -webkit-border-radius: 5px;
 }
 
-div#mecab-result {
+div#nlp-result {
   padding: 1em;
   border: 3px solid #ccc;
   border-radius: 3em .7em 2em .7em/.7em 2em .7em 3em;
 }
 
-span#mecab-count,div#mecab-result-count{
+span#nlp-count,div#nlp-result-count{
   padding: .5em .75em;
   background-color: #f6f6f6;
   border-radius: 6px;

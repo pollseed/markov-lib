@@ -1,0 +1,22 @@
+{
+  "name": "marcov_lib",
+  "version": "0.0.0",
+  "homepage": "https://github.com/pollseed/marcov-lib",
+  "authors": [
+    "pollseed"
+  ],
+  "description": "marcov chain for js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kuromoji": "~0.0.5",
+    "bower": "*"
+  }
+}

@@ -1,12 +1,22 @@
 (function() {
   "use strict";
 
-  function mecab() {
-    let count = document.getElementById('mecab-count'),
-        input = document.getElementById('mecab-input').value;
+  function nlp() {
+    let count = document.getElementById('nlp-count'),
+        input = document.getElementById('nlp-input').value;
     count.innerHTML = input.length;
+
+    kuromoji.builder({ dicPath: '/dict' }).build((err, tokenizer) => {
+      let path = tokenizer.tokenize(input), data = [];
+      console.info(path);
+      path.forEach(v => { data.push(v.surface_form); })
+      requestParse(data, input.length);
+    });
+
+    /*
     $.ajax({
-      url: '/markov/mecab',
+      //url: '/markov/nlp',
+      url: '/markov/kuromoji',
       data: {
         input: input
       },
@@ -26,30 +36,29 @@
           });
       });
       result.appendChild(table);
-      */
     }).fail((data, status, error) => {
       console.log(`${status}: ${error}`);
     });
+    */
   }
 
   /**
-   * mecabによって分割された単語ベースに要約処理.
+   * nlpによって分割された単語ベースに要約処理.
    * ※ただし、圧縮率が1.0以上の場合に再度サーバにマルコフ連鎖処理
    *
-   * @param data サーバから渡されたmecabオブジェクト
+   * @param data サーバから渡されたnlpオブジェクト
    * @param inputLen インプットの長さ
    */
-  function requestParse(data, inputLen) {
-    let r = data.result,
-        result = document.getElementById('mecab-result'),
-        count = document.getElementById('mecab-result-count');
+  function requestParse(r, inputLen) {
+    let result = document.getElementById('nlp-result'),
+        count = document.getElementById('nlp-result-count');
         // table = document.createElement('table');
     if (r === undefined || r === null || r.length <= 0) return;
 
     $.ajax({
       url: '/markov/parse',
       data: {
-        mecab: r
+        nlp: r
       },
     }).done((data, status, xhr) => {
       let p = document.createElement('p'),
@@ -57,7 +66,7 @@
           rLen = r.length;
 
       // 圧縮率が1.0以下でないと表示する意味はない
-      if (inputLen <= rLen) return mecab();
+      if (inputLen <= rLen) return nlp();
 
       p.innerHTML = r;
       if (result.firstChild !== null) result.removeChild(result.firstChild);
@@ -84,8 +93,8 @@
   }
 
   function load() {
-    let mecab_input = document.getElementById('mecab-input');
-    mecab_input.addEventListener('blur', mecab, false);
+    let nlp_input = document.getElementById('nlp-input');
+    nlp_input.addEventListener('blur', nlp, false);
   }
   document.addEventListener('DOMContentLoaded', load, false);
 }());

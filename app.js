@@ -24,6 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/jquery/dist/')));
 app.use(express.static(path.join(__dirname, 'node_modules/purecss/build/')));
+app.use(express.static(path.join(__dirname, 'bower_components/kuromoji/dist/')));
 
 app.use('/', routes);
 app.use('/users', users);

@@ -1,27 +1,41 @@
 "use strict";
 
 var express = require('express'),
-    router = express.Router(),
-    MeCab = new require('mecab-async'),
-    mecab = new MeCab();
+    router = express.Router();
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
   res.render('markov', { title: '形態素解析' });
 });
 
-router.get('/mecab', (req, res, next) => {
-  mecab.wakachi(req.query.input, (err, word) => {
+/*
+ * nlp version.
+var
+    nlp = new require('nlp-async'),
+    nlp = new nlp();
+router.get('/nlp', (req, res, next) => {
+  nlp.wakachi(req.query.input, (err, word) => {
     console.log(word);
     res.json({ "result": word });
   });
 });
+const DICT = "../node_modules/kuromoji/dist/dict/";
+router.get('/kuromoji', (req, res, next) => {
+  kuromoji.builder({ dicPath: DICT })
+    .build((err, tokenizer) => {
+      var input = req.query.input;
+      var path = tokenizer.tokenize(input);
+      console.log(path);
+      res.json({ "result": path });
+    });
+});
+*/
 
 router.get('/parse', (req, res, next) => {
-  var mecab = req.query.mecab;
-  console.log('query: ' + mecab);
-  if (mecab === undefined || mecab === null) res.json({ "result": "" });
-  var markov = MalkovHelper.process(mecab);
+  var nlp = req.query.nlp;
+  console.log('query: ' + nlp);
+  if (nlp === undefined || nlp === null) res.json({ "result": "" });
+  var markov = MalkovHelper.process(nlp);
   console.log(markov);
   res.json({ "result": markov });
 });

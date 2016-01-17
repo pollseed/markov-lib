@@ -2,19 +2,20 @@ extends layout
 
 block content
   h1=title
-  textarea#mecab-input(placeholder="要約したい文章を入力してください。")
+  textarea#nlp-input(placeholder="要約したい文章を入力してください。")
   br
   br
   合計文字数：
-  span#mecab-count
+  span#nlp-count
   br
   br
-  div#mecab-result
+  div#nlp-result
   br
   br
   合計文字数：
-  div#mecab-result-count
+  div#nlp-result-count
   br
   br
 
+  script(src="browser/kuromoji.js")
   script(src='../javascripts/markov.js')

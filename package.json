@@ -13,6 +13,7 @@
     "iconv-lite": "^0.4.13",
     "jade": "~1.11.0",
     "jquery": "^2.2.0",
+    "kuromoji": "0.0.5",
     "log4js": "^0.6.29",
     "mecab-async": "^0.1.0",
     "morgan": "~1.6.1",
