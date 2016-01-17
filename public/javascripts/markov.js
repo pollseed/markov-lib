@@ -2,6 +2,7 @@
   "use strict";
 
   function nlp() {
+    $('.spinner').show();
     let count = document.getElementById('nlp-count'),
         input = document.getElementById('nlp-input').value;
     count.innerHTML = input.length;
@@ -63,12 +64,12 @@
     }).done((data, status, xhr) => {
       let p = document.createElement('p'),
           r = data.result, rLen;
-      if (r.status != 200) {
-        p.innerHTML = "文字数が多すぎます。500文字以内にして下さい。"
-        p.style.color = "#F78181";
-        result.appendChild(p);
+      if (!validation(data.status)) {
+        removeFirstChild(result);
+        $('.spinner').hide();
         return;
       }
+
       r = data.result.join('');
       rLen = r.length;
 
@@ -76,13 +77,38 @@
       if (inputLen <= rLen) return nlp();
 
       p.innerHTML = r;
-      if (result.firstChild !== null) result.removeChild(result.firstChild);
+      removeFirstChild(result);
       result.appendChild(p);
       count.innerHTML = `${rLen} (圧縮率: ${100 - (Math.round((rLen / inputLen) * 10000) / 100)} %)`;
       console.info(data);
+      $('.spinner').hide();
     }).fail((data, status, error) => {
       console.info(data);
     });
+  }
+
+  function removeFirstChild(result) {
+    if (result.firstChild !== null) result.removeChild(result.firstChild);
+  }
+
+  function validation(status) {
+    if (status == 200) return true;
+
+    let msg = '';
+    if (status == 400) {
+      msg = "与えられた文字列が不正です。再度入力して下さい。";
+    } else if (status == 404) {
+      msg = "文字数が多すぎます。500文字以内にして下さい。"
+    } else {
+      return true;
+    }
+
+    let p = document.createElement('p'),
+        result = document.getElementById('nlp-result');
+    p.style.color = "#F78181";
+    p.innerHTML = msg;
+    result.appendChild(p);
+    return false;
   }
 
   /**
@@ -100,6 +126,7 @@
   }
 
   function load() {
+    $('.spinner').hide();
     let nlp_input = document.getElementById('nlp-input');
     nlp_input.addEventListener('blur', nlp, false);
   }
