@@ -5,7 +5,7 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  res.render('markov', { title: '形態素解析' });
+  res.render('markov', { title: '形態素解析 - マルコフ連鎖' });
 });
 
 /*

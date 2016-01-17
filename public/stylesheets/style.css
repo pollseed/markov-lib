@@ -4,6 +4,12 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.footer {
+  position: absolute;
+	bottom: 0px;
+	padding: 10px 0;
+}
+
 h1 {
   padding-bottom: .5em;
   border-bottom: 3px double #ccc;
