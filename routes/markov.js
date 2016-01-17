@@ -19,6 +19,7 @@ router.get('/mecab', (req, res, next) => {
 
 router.get('/parse', (req, res, next) => {
   var mecab = req.query.mecab;
+  console.log('query: ' + mecab);
   if (mecab === undefined || mecab === null) res.json({ "result": "" });
   var markov = MalkovHelper.process(mecab);
   console.log(markov);
