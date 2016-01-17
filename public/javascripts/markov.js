@@ -62,8 +62,15 @@
       },
     }).done((data, status, xhr) => {
       let p = document.createElement('p'),
-          r = data.result.join(''),
-          rLen = r.length;
+          r = data.result, rLen;
+      if (r.status != 200) {
+        p.innerHTML = "文字数が多すぎます。500文字以内にして下さい。"
+        p.style.color = "#F78181";
+        result.appendChild(p);
+        return;
+      }
+      r = data.result.join('');
+      rLen = r.length;
 
       // 圧縮率が1.0以下でないと表示する意味はない
       if (inputLen <= rLen) return nlp();

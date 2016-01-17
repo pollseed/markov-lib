@@ -35,6 +35,8 @@ router.get('/parse', (req, res, next) => {
   var nlp = req.query.nlp;
   console.log('query: ' + nlp);
   if (nlp === undefined || nlp === null) res.json({ "result": "" });
+  if (nlp.join('').length > 500) res.json({ "result": "length too many", "status": 404 });
+  console.log(nlp.join(''));
   var markov = MalkovHelper.process(nlp);
   console.log(markov);
   res.json({ "result": markov });
