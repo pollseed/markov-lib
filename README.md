@@ -8,7 +8,7 @@
 
 ## Support
 Mac OS El Capitan環境 でのみ動作検証をしています。  
-***※スマートフォン(OS, Androidなど)でのサポートはしていません。***
+***※スマートフォン(iOS, Androidなど)でのサポートはしていません。***
 
 ### Browser
 |Browser|version|o/x|
