@@ -14,4 +14,4 @@ Mac OS El Capitan環境 でのみ動作検証をしています。
 |Browser|version|o/x|
 |:--:|:--:|:--:|
 |Google Chrome|47.0.2526.x|o|
-|Mozzila Firefox|43.0.4||
+|Mozzila Firefox|all|x|
