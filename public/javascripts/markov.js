@@ -86,7 +86,6 @@
         } else {
           if (!validation(408)) {
             removeFirstChild(result);
-            //$('.spinner').hide();
             stoploading();
             return;
           }
@@ -98,9 +97,10 @@
       result.appendChild(p);
       count.innerHTML = `${rLen} (圧縮率: ${100 - (Math.round((rLen / inputLen) * 10000) / 100)} %)`;
       console.info(data);
-      stoploading();
     }).fail((data, status, error) => {
       console.info(data);
+    }).complete(() => {
+      stoploading();
     });
   }
 
