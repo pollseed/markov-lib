@@ -5,7 +5,7 @@
   const TRIAL = 10;
 
   function nlp() {
-    $('.spinner').show();
+    loading();
     let count = document.getElementById('nlp-count'),
         input = document.getElementById('nlp-input').value;
     count.innerHTML = input.length;
@@ -69,7 +69,7 @@
           r = data.result, rLen;
       if (!validation(data.status)) {
         removeFirstChild(result);
-        $('.spinner').hide();
+        stoploading();
         return;
       }
 
@@ -86,7 +86,8 @@
         } else {
           if (!validation(408)) {
             removeFirstChild(result);
-            $('.spinner').hide();
+            //$('.spinner').hide();
+            stoploading();
             return;
           }
         }
@@ -97,7 +98,7 @@
       result.appendChild(p);
       count.innerHTML = `${rLen} (圧縮率: ${100 - (Math.round((rLen / inputLen) * 10000) / 100)} %)`;
       console.info(data);
-      $('.spinner').hide();
+      stoploading();
     }).fail((data, status, error) => {
       console.info(data);
     });
@@ -152,7 +153,6 @@
   }
 
   function load() {
-    $('.spinner').hide();
     let nlp_input = document.getElementById('nlp-input');
     nlp_input.addEventListener('blur', nlp, false);
   }
