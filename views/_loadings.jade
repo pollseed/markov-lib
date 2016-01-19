@@ -1,13 +1,14 @@
 div#out-loader
   div#in-loader
-    img(src="" width="80" height="80" alt="Now Loading...")
-    p Now Loading...
+    img(src="/images/loading.gif" alt="Now Loading...")
+    p Now In Summary...
 
 script().
   "use strict";
   function loading() {
     let height = $(window).height();
-    $('#out-loader, #loader').height(height).css('display', 'block');
+    $('#out-loader, #in-loader').height(height).css('display', 'block');
+    stoploading();
   }
 
   function stoploading() {
