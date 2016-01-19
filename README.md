@@ -9,10 +9,10 @@
 * Node.js v5.4.x
 * npm
 * bower (**※1)**
+* Google Chrome
 
 #### Hard
 * Mac OS EI Capitan
-* Google Chrome
 
 ### Deploy
 master push時のAuto Deployとなっております
