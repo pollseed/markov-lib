@@ -14,6 +14,9 @@
 * Mac OS EI Capitan
 * Google Chrome
 
+### Deploy
+master push時のAuto Deployとなっております
+
 ## Support
 Mac OS El Capitan環境 でのみ動作検証をしています。  
 ***※スマートフォン(iOS, Androidなど)でのサポートはしていません。***
