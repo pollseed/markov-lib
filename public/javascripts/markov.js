@@ -1,6 +1,9 @@
 (function() {
   "use strict";
 
+  // 試行回数
+  const TRIAL = 10;
+
   function nlp() {
     $('.spinner').show();
     let count = document.getElementById('nlp-count'),
@@ -74,7 +77,20 @@
       rLen = r.length;
 
       // 圧縮率が1.0以下でないと表示する意味はない
-      if (inputLen <= rLen) return nlp();
+      // ※10回以上試行してもだめなら一度やめる
+      if (inputLen <= rLen) {
+        let ai = autoIncrement();
+        if (ai < TRIAL) {
+          console.log(`試行回数: ${ai}`);
+          return nlp();
+        } else {
+          if (!validation(408)) {
+            removeFirstChild(result);
+            $('.spinner').hide();
+            return;
+          }
+        }
+      }
 
       p.innerHTML = r;
       removeFirstChild(result);
@@ -86,6 +102,14 @@
       console.info(data);
     });
   }
+
+  // AI
+  let autoIncrement = (function() {
+    let num = 0;
+    return () => {
+      return ++num;
+    };
+  }());
 
   function removeFirstChild(result) {
     if (result.firstChild !== null) result.removeChild(result.firstChild);
@@ -99,6 +123,8 @@
       msg = "与えられた文字列が不正です。再度入力して下さい。";
     } else if (status == 404) {
       msg = "文字数が多すぎます。500文字以内にして下さい。"
+    } else if (status == 408) {
+      msg = "タイムアウトしました。一度リロードして再度入力して下さい。";
     } else {
       return true;
     }
