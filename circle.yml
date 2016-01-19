@@ -9,6 +9,6 @@ dependencies:
   override:
       - npm install
 
-test:
-  post:
-      - ./test.sh
+#test:
+#  post:
+#      - ./test.sh
