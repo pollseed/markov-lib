@@ -1,4 +1,5 @@
 # markov-lib
+[![Circle CI](https://circleci.com/gh/pollseed/markov-lib/tree/master.svg?style=svg)](https://circleci.com/gh/pollseed/markov-lib/tree/master)
 
 ## Developers
 
