@@ -16,6 +16,7 @@
     "log4js": "^0.6.29",
     "mecab-async": "^0.1.0",
     "morgan": "~1.6.1",
+    "pm2": "^1.0.0",
     "purecss": "^0.6.0",
     "serve-favicon": "~2.3.0"
   },
