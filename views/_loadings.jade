@@ -1,0 +1,16 @@
+div#out-loader
+  div#in-loader
+    img(src="" width="80" height="80" alt="Now Loading...")
+    p Now Loading...
+
+script().
+  "use strict";
+  function loading() {
+    let height = $(window).height();
+    $('#out-loader, #loader').height(height).css('display', 'block');
+  }
+
+  function stoploading() {
+    $('#out-loader').delay(900).fadeOut(800);
+    $('#in-loader').delay(600).fadeOut(300);
+  }
