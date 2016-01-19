@@ -3,9 +3,11 @@ machine:
       version: 5.4.1
 
 dependencies:
+  pre:
+    - npm install -g bower
+    - bower install
   override:
       - npm install
-      - bower install
 
 test:
   post:
