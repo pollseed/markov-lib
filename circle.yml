@@ -1,0 +1,12 @@
+machine:
+  node:
+      version: 5.4.1
+
+dependencies:
+  override:
+      - npm install
+      - bower install
+
+test:
+  post:
+      - ./test.sh
